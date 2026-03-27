@@ -1,6 +1,8 @@
 import pandas as pd
+import os
 
 def startFunc():
+    os.system('cls')
     print("The follow options can be done with the Dataset")
     print(' ' * 4, "1. Import file into DataFrame")
     print(' ' * 4, "2. Display the number of records and variables in the dataset")
@@ -58,6 +60,21 @@ def lastThreeRows():
     print(clinicData.tail(3))
 
 
+# Question 4
+def handleData():
+    '''
+    for index, row in clinicData.iterrows():
+        for col, value in row.items():
+            if pd.isnull(value):
+                if col == "gender":
+                    clinicData.loc[row, col] = 1
+                    print(value)
+    '''
+    clinicDataModified = clinicData.fillna(0)
+    print(clinicDataModified)
+    #print(nullDataFrame)
+
+
 def whichQuestion(num):
     if num == 1:
         importFile()
@@ -78,7 +95,12 @@ def whichQuestion(num):
     elif num == 9:
         scatterPlot()
     else:
+        replaceCSV = pd.read_csv("./Clean-ClinicData.csv")
+        replaceCSV.to_csv("./ClinicData.csv", index=False)
         exit()
+
+    print(' ')
+    os.system("pause")
     startFunc()
 
 startFunc()
