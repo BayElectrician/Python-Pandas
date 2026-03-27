@@ -14,16 +14,16 @@ def startFunc():
 
     print(' ')
     num = 110
-        while num not in range(0,10):
-            print("To Exit Type 0")
-            userInput = input("Which Question Would you like Answered?:")
-            try:
-                num = int(userInput)
-            except ValueError:
-                print("Please enter an interger number between 0 and 9")
+    while num not in range(0,10):
+        print("To Exit Type 0")
+        userInput = input("Which Question Would you like Answered?:")
+        try:
+            num = int(userInput)
+        except ValueError:
+            print("Please enter an interger number between 0 and 9")
 
-        print(' ')
-        whichQuestion(num)
+    print(' ')
+    whichQuestion(num)
 
 # Question 1
 def importFile():
@@ -34,7 +34,7 @@ def importFile():
 
     # Import and convert to Dataframe
     dataImport = pd.read_csv(f"./{fileName}.{fileType}")
-    global clinic_data
+    global clinicData
     clinicData = pd.DataFrame(data=dataImport)
 
     print(' ')
@@ -43,9 +43,19 @@ def importFile():
     print(clinicData)
 
 
+# Question 2
 def numberOfValues():
     #Clarify what they mean by variables in the Dataset
     numOfRecords = clinicData.shape[0]
+    print(f"The number of rows is {numOfRecords}")
+    print(' ')
+
+
+# Question 3
+def lastThreeRows():
+    print("The Final Three Rows")
+    print(' ')
+    print(clinicData.tail(3))
 
 
 def whichQuestion(num):
