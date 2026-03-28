@@ -1,5 +1,11 @@
 import pandas as pd
 import os
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+
+# Create a random number generator with a fixed seed for reproducibility
+rng = np.random.default_rng(19680801)
 
 def startFunc():
     os.system('cls')
@@ -63,6 +69,9 @@ def lastThreeRows():
 # Question 4
 def handleData():
     '''
+    Do we have to find appropiate values or can be just place a value of 0?
+
+
     for index, row in clinicData.iterrows():
         for col, value in row.items():
             if pd.isnull(value):
@@ -73,6 +82,105 @@ def handleData():
     clinicDataModified = clinicData.fillna(0)
     print(clinicDataModified)
     #print(nullDataFrame)
+
+
+# Question 5
+def dataInsights():
+    minAge = clinicData["age"].min()
+    maxAge = clinicData["age"].max()
+    meanAge = round(clinicData["age"].mean(), 2)
+    medAge = clinicData["age"].median()
+
+    minBMI = clinicData["bmi"].min()
+    maxBMI = clinicData["bmi"].max()
+    meanBMI = round(clinicData["bmi"].mean(), 2)
+    medBMI = clinicData["bmi"].median()
+
+    minExer = clinicData["exercise_level"].min()
+    maxExer = clinicData["exercise_level"].max()
+    meanExer = round(clinicData["exercise_level"].mean(), 2)
+    medExer = clinicData["exercise_level"].median()
+
+    minSys = clinicData["systolic_bp"].min()
+    maxSys = clinicData["systolic_bp"].max()
+    meanSys = round(clinicData["systolic_bp"].mean(), 2)
+    medSys = clinicData["systolic_bp"].median()
+
+    minDias = clinicData["diastolic_bp"].min()
+    maxDias = clinicData["diastolic_bp"].max()
+    meanDias = round(clinicData["diastolic_bp"].mean(), 2)
+    medDias = clinicData["diastolic_bp"].median()
+
+    minChol = clinicData["cholesterol"].min()
+    maxChol = clinicData["cholesterol"].max()
+    meanChol = round(clinicData["cholesterol"].mean(), 2)
+    medChol = clinicData["cholesterol"].median()
+
+    minHealth = clinicData["health_score"].min()
+    maxHealth = clinicData["health_score"].max()
+    meanHealth = round(clinicData["health_score"].mean(), 2)
+    medHealth = clinicData["health_score"].median()
+
+
+    insightsTable = pd.DataFrame(
+             {
+                 "Minimum": [minAge, minBMI, minExer, minSys, minDias, minChol, minHealth],
+                 "Maximum": [maxAge, maxBMI, maxExer, maxSys, maxDias, maxChol, maxHealth],
+                 "Mean": [meanAge, meanBMI, meanExer, meanSys, meanDias, meanChol, meanHealth],
+                 "Medium": [medAge, medBMI, medExer, medSys, medDias, medChol, medHealth]
+            },
+            index=["Age", "BMI", "Exercise", "Systolic", "Diastolic", "Cholesterol", "Health Score"]
+    )
+    print(insightsTable)
+
+
+# Question6
+def cholesterolHistogram():
+    print("The graph will shwo up on another screen")
+
+    '''
+    Matplotlib Histogram is amazing
+    The pandas DataFrame can be chosen through changing cholesterol to whatever
+    column name is desired.
+    The number of histogram bars can be controlled through changing the bins to 
+    number requested.
+    '''
+    plt.hist(clinicData["cholesterol"], bins=20, color='skyblue', edgecolor='black')
+    plt.xlabel("Cholesterol")
+    plt.ylabel("Frequency")
+    plt.title("Cholesterol Histogram")
+    plt.show()
+
+
+# Question 7
+def barAgeDistrobution():
+    countYoung = 0
+    countMid = 0
+    countOld = 0
+    countElse = 0
+    for x in clinicData["age"]:
+        if x <= 18:
+            countYoung += 1
+        elif 18 < x < 60:
+            countMid += 1
+        elif x >= 60:
+            countOld += 1
+        else:
+            countElse += 1
+    
+    yIncrement = [countYoung, countMid, countOld, countElse]
+    print("The bar chart will display on a new window")
+
+    grouping = ["Child(<=18)", "Adult(19-59)", "Senior(60+)", "Errors"]
+    data = [countYoung, countMid, countOld, countElse]
+
+    plt.bar(grouping, data)
+    plt.xlabel("Age Groups")
+    plt.ylabel("Frequency")
+    plt.yticks(np.arange(0, max(yIncrement)+20, 10))
+    plt.title("Frequency of Age Grouping in Data")
+
+    plt.show()
 
 
 def whichQuestion(num):
