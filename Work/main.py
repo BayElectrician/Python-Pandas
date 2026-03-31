@@ -224,13 +224,23 @@ def riskGenderChart():
     plt.bar(x + w, data3, width=w, label=genders[2])
 
     plt.xticks(x)
+    plt.xlabel("Risk Status")
+    plt.ylabel("Frequency")
+    plt.title("Frequency of Risk Status of Each Gender")
     plt.legend()
     plt.show()
 
 
 # Question 9
 def scatterPlot():
-    print("Hellow")
+    xData = clinicData["systolic_bp"]
+    yData = clinicData["cholesterol"]
+
+    plt.scatter(xData, yData)
+    plt.xlabel("Systolic BP (mmHg)")
+    plt.ylabel("Cholesterol")
+    plt.title("Connection between Systolic BP and Cholesterol")
+    plt.show()
 
 
 def whichQuestion(num):
