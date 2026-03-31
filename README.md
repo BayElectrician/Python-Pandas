@@ -18,4 +18,7 @@ pip install pandas numpy mathplotlib
 ## Reflection
 Throughout this project I have learned how to read development (A.K.A API) documentation correctly.
 As well as improving my skills within Neovim, git, and GitHub.
-*Neovim is amazing you should really try it*
+**Neovim is amazing you should really try it**
+
+
+It did not realise that my local git config --global user.name was TheLockSmith. This was supposed to log me in through GitHub's gh auth (BayElectrician). They are both me.
