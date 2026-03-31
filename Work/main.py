@@ -183,6 +183,56 @@ def barAgeDistrobution():
     plt.show()
 
 
+# Question 8
+def riskGenderChart():
+    femaleRiskZero = 0
+    femaleRiskOne = 0
+
+    maleRiskZero = 0
+    maleRiskOne = 0
+
+    errorRiskZero = 0
+    errorRiskOne = 0
+
+    genders = ["Male", "Female", "Error"]
+    for index, row in clinicData.iterrows():
+        if row["gender"] == 0:
+            if row["risk_status"] == 0:
+                femaleRiskZero += 1
+            else:
+                femaleRiskOne += 1
+        elif row["gender"] == 1:
+            if row["risk_status"] == 0:
+                maleRiskZero += 1
+            else:
+                maleRiskOne += 1
+        else:
+            if row["risk_status"] == 0:
+                errorRiskZero += 1
+            else:
+                errorRiskZero += 1
+   
+    labels = [0, 1]
+    data1 = [femaleRiskZero, femaleRiskOne]
+    data2 = [maleRiskZero, maleRiskOne]
+    data3 = [errorRiskZero, maleRiskOne]
+
+    # Width and Position of axes
+    w, x = 0.25, np.arange(len(labels))
+    plt.bar(x - w, data1, width=w, label=genders[0])
+    plt.bar(x, data2, width=w, label=genders[1])
+    plt.bar(x + w, data3, width=w, label=genders[2])
+
+    plt.xticks(x)
+    plt.legend()
+    plt.show()
+
+
+# Question 9
+def scatterPlot():
+    print("Hellow")
+
+
 def whichQuestion(num):
     if num == 1:
         importFile()
