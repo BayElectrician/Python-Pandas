@@ -4,9 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
-# Create a random number generator with a fixed seed for reproducibility
-rng = np.random.default_rng(19680801)
-
 def startFunc():
     os.system('cls')
     print("The follow options can be done with the Dataset")
@@ -24,7 +21,7 @@ def startFunc():
     num = 110
     while num not in range(0,10):
         print("To Exit Type 0")
-        userInput = input("Which Question Would you like Answered?:")
+        userInput = input("Which Question Would you like Answered?: ")
         try:
             num = int(userInput)
         except ValueError:
@@ -53,9 +50,10 @@ def importFile():
 
 # Question 2
 def numberOfValues():
-    #Clarify what they mean by variables in the Dataset
     numOfRecords = clinicData.shape[0]
     print(f"The number of rows is {numOfRecords}")
+    numOfVar = clinicData.shape[0] * clinicData.shape[1]
+    print(f"The number of variables within the dataset is {numOfVar}")
     print(' ')
 
 
@@ -70,19 +68,19 @@ def lastThreeRows():
 def handleData():
     '''
     Do we have to find appropiate values or can be just place a value of 0?
-
+    '''
+    nulls = 0
 
     for index, row in clinicData.iterrows():
         for col, value in row.items():
             if pd.isnull(value):
                 if col == "gender":
-                    clinicData.loc[row, col] = 1
-                    print(value)
-    '''
-    clinicDataModified = clinicData.fillna(0)
-    print(clinicDataModified)
-    #print(nullDataFrame)
+                    nulls += 1
 
+    #clinicDataModified = clinicData.fillna(0)
+    #print(clinicDataModified)
+    #print(nullDataFrame)
+    print(nulls)
 
 # Question 5
 def dataInsights():
