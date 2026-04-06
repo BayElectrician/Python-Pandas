@@ -66,21 +66,39 @@ def lastThreeRows():
 
 # Question 4
 def handleData():
-    '''
-    Do we have to find appropiate values or can be just place a value of 0?
-    '''
-    nulls = 0
+    global clinicData
 
-    for index, row in clinicData.iterrows():
-        for col, value in row.items():
-            if pd.isnull(value):
-                if col == "gender":
-                    nulls += 1
+    print("Critical Values:")
+    #Critical Values
+    # Age
+    print("Checking Age Values")
+    clinicData.loc[clinicData["age"] > 120, "age"] = 120
+    clinicData.loc[clinicData["age"] < 0, "age"] = 0
+    
+    # Gender
+    print("\nChecking Gender Values")
+    clinicData.dropna(subset=["gender"], inplace=True)
 
-    #clinicDataModified = clinicData.fillna(0)
-    #print(clinicDataModified)
-    #print(nullDataFrame)
-    print(nulls)
+    #Cholesterol
+    print("\nChecking Cholesterol Values")
+    clinicData.loc[clinicData["cholesterol"] > 300, "cholesterol"] = 300
+    clinicData.loc[clinicData["cholesterol"] < 0, "cholesterol"] = 0
+    clinicData.dropna(subset=["cholesterol"], inplace=True)
+
+    # Risk Status
+    print("\nChecking Risk Status")
+    clinicData = clinicData[clinicData["risk_status"].isin([0.0, 1.0])]
+
+    print("\n\nNon-critical Values")
+    #None Critical Values
+    #BMI
+    print("\nChecking BMI")
+    clinicData.loc[clinicData["bmi"] < 0, "bmi"] = clinicData["bmi"].abs()
+
+    #Exercise
+    print("\nChecking exercise")
+    clinicData.loc[clinicData["exercise"] < 0, "exercise"] = clinicData["exercise"].abs()
+
 
 # Question 5
 def dataInsights():
@@ -169,7 +187,7 @@ def barAgeDistrobution():
     yIncrement = [countYoung, countMid, countOld, countElse]
     print("The bar chart will display on a new window")
 
-    grouping = ["Child(<=18)", "Adult(19-59)", "Senior(60+)", "Errors"]
+    grouping = ["Child(<=18)", "Adult(19-59)", "Senior(60+)", "No Age Entered"]
     data = [countYoung, countMid, countOld, countElse]
 
     plt.bar(grouping, data)
@@ -210,7 +228,7 @@ def riskGenderChart():
             else:
                 errorRiskZero += 1
    
-    labels = [0, 1]
+    labels = ["Low", "High"]
     data1 = [femaleRiskZero, femaleRiskOne]
     data2 = [maleRiskZero, maleRiskOne]
     data3 = [errorRiskZero, maleRiskOne]
@@ -221,8 +239,8 @@ def riskGenderChart():
     plt.bar(x, data2, width=w, label=genders[1])
     plt.bar(x + w, data3, width=w, label=genders[2])
 
-    plt.xticks(x)
-    plt.xlabel("Risk Status")
+    plt.xticks([0, 1], labels)
+    plt.xlabel("Cardiovascular Risk Status")
     plt.ylabel("Frequency")
     plt.title("Frequency of Risk Status of Each Gender")
     plt.legend()
