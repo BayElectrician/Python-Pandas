@@ -74,6 +74,7 @@ def handleData():
     print("Checking Age Values")
     clinicData.loc[clinicData["age"] > 120, "age"] = 120
     clinicData.loc[clinicData["age"] < 0, "age"] = 0
+    clinicData.dropna(subset=["age"], inplace=True)
     
     # Gender
     print("\nChecking Gender Values")
@@ -97,7 +98,7 @@ def handleData():
 
     #Exercise
     print("\nChecking exercise")
-    clinicData.loc[clinicData["exercise"] < 0, "exercise"] = clinicData["exercise"].abs()
+    clinicData.loc[clinicData["exercise_level"] < 0, "exercise_level"] = clinicData["exercise_level"].abs()
 
 
 # Question 5
@@ -150,7 +151,7 @@ def dataInsights():
     print(insightsTable)
 
 
-# Question6
+# Question 6
 def cholesterolHistogram():
     print("The graph will shwo up on another screen")
 
@@ -164,7 +165,7 @@ def cholesterolHistogram():
     plt.hist(clinicData["cholesterol"], bins=20, color='skyblue', edgecolor='black')
     plt.xlabel("Cholesterol")
     plt.ylabel("Frequency")
-    plt.title("Cholesterol Histogram")
+    plt.title("Frequency of Cholesterol points in the Clinic Data")
     plt.show()
 
 
@@ -182,6 +183,7 @@ def barAgeDistrobution():
         elif x >= 60:
             countOld += 1
         else:
+            print(x)
             countElse += 1
     
     yIncrement = [countYoung, countMid, countOld, countElse]
@@ -209,7 +211,7 @@ def riskGenderChart():
 
     errorRiskZero = 0
     errorRiskOne = 0
-
+    
     genders = ["Male", "Female", "Error"]
     for index, row in clinicData.iterrows():
         if row["gender"] == 0:
@@ -227,11 +229,11 @@ def riskGenderChart():
                 errorRiskZero += 1
             else:
                 errorRiskZero += 1
-   
+
     labels = ["Low", "High"]
     data1 = [femaleRiskZero, femaleRiskOne]
     data2 = [maleRiskZero, maleRiskOne]
-    data3 = [errorRiskZero, maleRiskOne]
+    data3 = [errorRiskZero, errorRiskOne]
 
     # Width and Position of axes
     w, x = 0.25, np.arange(len(labels))
@@ -253,7 +255,7 @@ def scatterPlot():
     yData = clinicData["cholesterol"]
 
     plt.scatter(xData, yData)
-    plt.xlabel("Systolic BP (mmHg)")
+    plt.xlabel("Systolic BP (mm/Hg)")
     plt.ylabel("Cholesterol")
     plt.title("Connection between Systolic BP and Cholesterol")
     plt.show()
