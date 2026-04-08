@@ -21,4 +21,5 @@ As well as improving my skills within Neovim, git, and GitHub.
 **Neovim is amazing you should really try it**
 
 
-It did not realise that my local git config --global user.name was TheLockSmith. This was supposed to log me in through GitHub's gh auth (BayElectrician). They are both me.
+It did not realise that my local git config --global user.name was TheLockSmith. This was supposed to log me in through GitHub's gh auth (BayElectrician). They are both me. 
+Now fixed. Just had to change the config --global user.email to one that is linked with github. Now everything in the commit history shows as BayElectrician.
