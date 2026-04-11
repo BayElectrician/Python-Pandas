@@ -77,27 +77,27 @@ def handleData():
     clinicData.dropna(subset=["age"], inplace=True)
     
     # Gender
-    print("\nChecking Gender Values")
+    print("Checking Gender Values")
     clinicData.dropna(subset=["gender"], inplace=True)
 
     #Cholesterol
-    print("\nChecking Cholesterol Values")
+    print("Checking Cholesterol Values")
     clinicData.loc[clinicData["cholesterol"] > 300, "cholesterol"] = 300
     clinicData.loc[clinicData["cholesterol"] < 0, "cholesterol"] = 0
     clinicData.dropna(subset=["cholesterol"], inplace=True)
 
     # Risk Status
-    print("\nChecking Risk Status")
+    print("Checking Risk Status")
     clinicData = clinicData[clinicData["risk_status"].isin([0.0, 1.0])]
 
     print("\n\nNon-critical Values")
     #None Critical Values
     #BMI
-    print("\nChecking BMI")
+    print("Checking BMI")
     clinicData.loc[clinicData["bmi"] < 0, "bmi"] = clinicData["bmi"].abs()
 
     #Exercise
-    print("\nChecking exercise")
+    print("Checking exercise")
     clinicData.loc[clinicData["exercise_level"] < 0, "exercise_level"] = clinicData["exercise_level"].abs()
 
 
